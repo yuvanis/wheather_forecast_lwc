@@ -5,21 +5,27 @@
 <!-- Weather Forecast -->
 <template>
     <div class="slds-m-around_medium">
-        <h1 class="slds-text-heading_small">Input Search Example</h1>
-        <p class="slds-text-body_regular">The following examples show various ways to create an input search component.</p>
+        <h1 class="slds-text-heading_large">Weather forecast app</h1>
+        <p class="slds-text-body_large">You can see the weather forecast for today and the next 3 days</p>
+        <div class="slds-form-element" onkeyup={handleKeyUp}>
+            <label class="slds-form-element__label" for="text-input-id-48">
+                Please enter the city and press 'enter'
+            </label>
+            <div class="slds-form-element__control">
+                <input class="slds-input"
+                       type="search"
+                       id="text-input-id-48"
+                       required=""
+                       aria-describedby="error-message-id-49"
+                       value={city}
+                       aria-invalid="true" />
+            </div>
+            <div if:false={isValidData} class="slds-form-element__help" id="error-message-id-49">
+                Incorrect city
+            </div>
+        </div>
+        <div>{temperature}</div>
+        <div>{wind}</div>
+        <div>{humidity}</div>
     </div>
-    <div onkeyup={handleKeyUp}>
-        <lightning-input
-                name="enter-search"
-                label="Search when user hits the 'enter' key"
-                type="search"
-                value={city}
-        ></lightning-input>
-    </div>
-    <p if:false={isValidData}>
-        Invalid data!
-    </p>
-    <p>{temperature}</p>
-    <p>{wind}</p>
-    <p>{humidity}</p>
 </template>

@@ -37,11 +37,13 @@ export default class WeatherForecast extends LightningElement {
                     this.wind = '';
                     this.humidity = '';
                     this.isValidData = false;
+                    this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
                 } else {
-                    this.temperature = `${Math.round(data.temperature)}°C`;
+                    this.temperature = `Temperature: ${Math.round(data.temperature)} °C`;
                     this.wind = `Wind speed: ${Math.round(data.wind)} m/s`;
                     this.humidity = `Humidity: ${Math.round(data.humidity)}%`;
                     this.isValidData = true;
+                    this.template.querySelector('.slds-form-element').classList.remove('slds-has-error');
                 }
 
             })
