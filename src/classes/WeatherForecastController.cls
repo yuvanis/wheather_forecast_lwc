@@ -17,12 +17,14 @@ public with sharing class WeatherForecastController {
 
         if(response.getStatusCode() == 200) {
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-            Map<String, Object> resultsMain =(Map<String, Object>)(results.get('main'));
-            Map<String, Object> resultsWind =(Map<String, Object>)(results.get('wind'));
+            Map<String, Object> resultsMain = (Map<String, Object>)(results.get('main'));
+            Map<String, Object> resultsWind = (Map<String, Object>)(results.get('wind'));
 
+            weather.weatherDescription = results.get('weather');
             weather.temperature = String.valueOf(resultsMain.get('temp'));
             weather.wind = Decimal.valueOf((Double)resultsWind.get('speed'));
             weather.humidity = String.valueOf(resultsMain.get('humidity'));
+            weather.orgDate = Date.today();
 
             System.debug(results.get('main'));
 
@@ -34,10 +36,12 @@ public with sharing class WeatherForecastController {
         @AuraEnabled
         public String temperature;
         @AuraEnabled
-        public String weatherDescription;
+        public Object weatherDescription;
         @AuraEnabled
         public Decimal wind;
         @AuraEnabled
         public String humidity;
+        @AuraEnabled
+        public Date orgDate;
     }
 }

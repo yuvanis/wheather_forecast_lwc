@@ -12,6 +12,9 @@ export default class WeatherForecast extends LightningElement {
     @api temperature;
     @api wind;
     @api humidity;
+    @api weatherDescription;
+    @api weatherIcon;
+    @api orgDate;
     @api isValidData;
     @track city;
 
@@ -33,15 +36,16 @@ export default class WeatherForecast extends LightningElement {
         getWeatherForecast({city: this.city})
             .then(data => {
                 if (data.temperature === undefined) {
-                    this.temperature = '';
-                    this.wind = '';
-                    this.humidity = '';
                     this.isValidData = false;
                     this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
                 } else {
-                    this.temperature = `Temperature: ${Math.round(data.temperature)} °C`;
+                    console.log(data.orgDate);
+                    this.weatherIcon = `https://openweathermap.org/img/w/${data.weatherDescription[0].icon}.png`;
+                    this.weatherDescription = data.weatherDescription[0].description;
+                    this.temperature = `${Math.round(data.temperature)}°C `;
                     this.wind = `Wind speed: ${Math.round(data.wind)} m/s`;
                     this.humidity = `Humidity: ${Math.round(data.humidity)}%`;
+                    this.orgDate = data.orgDate;
                     this.isValidData = true;
                     this.template.querySelector('.slds-form-element').classList.remove('slds-has-error');
                 }
