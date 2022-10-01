@@ -24,17 +24,11 @@
                 Incorrect city
             </div>
         </div>
-        <div if:true={isValidData}>
-            <div>{orgDate}</div>
-            <div class="weather-icon">
-                <img src={weatherIcon} alt="weather icon">
-            </div>
-            <div>
-                <span>{temperature}</span>
-                <span>{weatherDescription}</span>
-            </div>
-            <div>{wind}</div>
-            <div>{humidity}</div>
+        <div if:true={isValidData} class="slds-grid slds-gutters">
+            <c-weather-forecast-tile class="slds-col" city={city} current-date={currentDate} weather-icon={weatherIcon} temperature={temperature} wind={wind} humidity={humidity}></c-weather-forecast-tile>
+            <c-weather-forecast-tile class="slds-col" city={city} current-date={currentDate} weather-icon={weatherIcon} temperature={temperature} wind={wind} humidity={humidity}></c-weather-forecast-tile>
+            <c-weather-forecast-tile class="slds-col" city={city} current-date={currentDate} weather-icon={weatherIcon} temperature={temperature} wind={wind} humidity={humidity}></c-weather-forecast-tile>
+            <c-weather-forecast-tile class="slds-col" city={city} current-date={currentDate} weather-icon={weatherIcon} temperature={temperature} wind={wind} humidity={humidity}></c-weather-forecast-tile>
         </div>
     </div>
 </template>

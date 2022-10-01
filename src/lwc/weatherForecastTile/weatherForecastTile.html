@@ -1,0 +1,19 @@
+<!--
+ - Created by yurynistratau on 30.09.22.
+ -->
+
+<!-- Weather Forecast Tile -->
+<template>
+    <div>
+        <lightning-formatted-date-time value={currentDate} month="long" day="2-digit" weekday="long"></lightning-formatted-date-time>
+    </div>
+    <div class="weather-icon">
+        <img src={weatherIcon} alt="weather icon">
+    </div>
+    <div>
+        <span>{temperature}</span>
+        <span>{weatherDescription}</span>
+    </div>
+    <div>{wind}</div>
+    <div>{humidity}</div>
+</template>

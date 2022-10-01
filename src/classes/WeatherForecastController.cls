@@ -5,7 +5,7 @@
 public with sharing class WeatherForecastController {
 
     @AuraEnabled(cacheable=true)
-    public static WeatherData getWeatherForecast(String city) {
+    public static WeatherData getWeatherForecast(String city, Date currentDate) {
 
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -25,8 +25,6 @@ public with sharing class WeatherForecastController {
             weather.wind = Decimal.valueOf((Double)resultsWind.get('speed'));
             weather.humidity = String.valueOf(resultsMain.get('humidity'));
             weather.orgDate = Date.today();
-
-            System.debug(results.get('main'));
 
         }
         return weather;
