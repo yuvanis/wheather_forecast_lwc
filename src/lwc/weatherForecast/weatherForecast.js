@@ -17,43 +17,42 @@ export default class WeatherForecast extends LightningElement {
     @api humidity;
     @api weatherDescription;
     @api weatherIcon;
-    @api orgDate;
 
     connectedCallback() {
         this.isValidData = true;
         this.city = 'Minsk';
         this.getCallback();
-        console.log(this.city)
     }
 
     handleKeyUp(evt) {
         const isEnterKey = evt.keyCode === 13;
         if (isEnterKey) {
             this.city = evt.target.value;
-            console.log('city')
             this.getCallback();
-
         }
     }
 
     getCallback() {
-        console.log(this.city)
-        getWeatherForecast({city: this.city, currentDate: this.currentDate})
+        getWeatherForecast({city: this.city})
             .then(data => {
-                if (data.temperature === undefined) {
+                if (data.length === 0) {
                     this.isValidData = false;
                     this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
                 } else {
-                    this.weatherIcon = `https://openweathermap.org/img/w/${data.weatherDescription[0].icon}.png`;
-                    this.weatherDescription = data.weatherDescription[0].description;
-                    this.temperature = `${Math.round(data.temperature)}°C `;
-                    this.wind = `Wind speed: ${Math.round(data.wind)} m/s`;
-                    this.humidity = `Humidity: ${Math.round(data.humidity)}%`;
-                    this.currentDate = data.orgDate;
+                    const newData = [];
+                    newData.push(data[0]);
+                    for (let item of data) {
+                        if ((item.dt_txt.substr(0, 10) !== newData[0].dt_txt.substr(0, 10)) && (item.dt_txt.substr(11, 8) === '15:00:00')) {
+                            newData.push(item);
+                        }
+                    }
+                    const childComponents = this.template.querySelectorAll('c-weather-forecast-tile');
+                    for (let i = 0; i < childComponents.length; i++) {
+                        childComponents[i].renderTiles(newData, i);
+                    }
                     this.isValidData = true;
                     this.template.querySelector('.slds-form-element').classList.remove('slds-has-error');
                 }
-
             })
             .catch(error => {
                     new ShowToastEvent({
@@ -64,4 +63,5 @@ export default class WeatherForecast extends LightningElement {
                 }
             )
     }
+
 }
