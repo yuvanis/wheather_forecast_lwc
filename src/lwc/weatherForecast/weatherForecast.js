@@ -11,9 +11,11 @@ export default class WeatherForecast extends LightningElement {
 
     city;
     isValidData;
+    isLoaded;
 
     connectedCallback() {
         this.isValidData = true;
+        this.isLoaded = true;
         this.city = 'Minsk';
         this.getCallback();
     }
@@ -21,6 +23,7 @@ export default class WeatherForecast extends LightningElement {
     handleKeyUp(evt) {
         const isEnterKey = evt.keyCode === 13;
         if (isEnterKey) {
+            this.isLoaded = true;
             this.city = evt.target.value;
             this.getCallback();
         }
@@ -31,6 +34,7 @@ export default class WeatherForecast extends LightningElement {
             .then(data => {
                 if (data.length === 0) {
                     this.isValidData = false;
+                    this.isLoaded = false;
                     this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
                 } else {
                     const newData = [];
@@ -45,6 +49,7 @@ export default class WeatherForecast extends LightningElement {
                         childComponents[i].renderTiles(newData, i);
                     }
                     this.isValidData = true;
+                    this.isLoaded = false;
                     this.template.querySelector('.slds-form-element').classList.remove('slds-has-error');
                 }
             })

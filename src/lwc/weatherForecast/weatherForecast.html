@@ -24,7 +24,10 @@
                 Incorrect city
             </div>
         </div>
-        <div if:true={isValidData} class="slds-grid slds-gutters">
+        <div if:true={isLoaded}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <div if:true={isValidData} if:false={isLoaded} class="slds-grid slds-gutters">
             <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
             <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
             <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
