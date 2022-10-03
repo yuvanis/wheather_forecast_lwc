@@ -2,21 +2,15 @@
  * Created by yurynistratau on 29.09.22.
  */
 
-import { LightningElement, api } from 'lwc';
+import { LightningElement } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getWeatherForecast from '@salesforce/apex/WeatherForecastController.getWeatherForecast';
 
 
 export default class WeatherForecast extends LightningElement {
 
-    @api currentDate;
-    @api city;
-    @api isValidData;
-    @api temperature;
-    @api wind;
-    @api humidity;
-    @api weatherDescription;
-    @api weatherIcon;
+    city;
+    isValidData;
 
     connectedCallback() {
         this.isValidData = true;

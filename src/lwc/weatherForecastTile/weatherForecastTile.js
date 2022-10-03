@@ -6,17 +6,12 @@ import { LightningElement, api } from 'lwc';
 
 export default class WeatherForecastTile extends LightningElement {
 
-    @api city;
-    @api currentDate;
-    @api isValidData;
-    @api temperature;
-    @api wind;
-    @api humidity;
-    @api weatherDescription;
-    @api weatherIcon;
-    @api orgDate;
-    @api order;
-    @api newData;
+    currentDate;
+    temperature;
+    wind;
+    humidity;
+    weatherDescription;
+    weatherIcon;
 
     @api
     renderTiles(newData, i) {
