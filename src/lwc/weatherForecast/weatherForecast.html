@@ -28,10 +28,9 @@
             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         </div>
         <div if:true={isValidData} if:false={isLoaded} class="slds-grid slds-gutters">
-            <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
-            <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
-            <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
-            <c-weather-forecast-tile class="slds-col"></c-weather-forecast-tile>
+            <template for:each={sendData} for:item="data">
+                <c-weather-forecast-tile class="slds-col" key={data.key} new-data={data}></c-weather-forecast-tile>
+            </template>
         </div>
     </div>
 </template>

@@ -5,15 +5,15 @@
 <!-- Weather Forecast Tile -->
 <template>
     <div>
-        <lightning-formatted-date-time value={currentDate} month="long" day="2-digit" weekday="long"></lightning-formatted-date-time>
+        <lightning-formatted-date-time value={newData.date} month="long" day="2-digit" weekday="long"></lightning-formatted-date-time>
     </div>
     <div class="weather-icon">
-        <img src={weatherIcon} alt="weather icon">
+        <img src={newData.weatherIcon} alt="weather icon">
     </div>
     <div>
-        <span>{temperature}</span>
-        <span>{weatherDescription}</span>
+        <span>{newData.temperature}</span>
+        <span>{newData.weatherDescription}</span>
     </div>
-    <div>{wind}</div>
-    <div>{humidity}</div>
+    <div>{newData.wind}</div>
+    <div>{newData.humidity}</div>
 </template>

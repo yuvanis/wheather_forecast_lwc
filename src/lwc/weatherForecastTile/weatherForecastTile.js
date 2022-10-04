@@ -6,21 +6,6 @@ import { LightningElement, api } from 'lwc';
 
 export default class WeatherForecastTile extends LightningElement {
 
-    currentDate;
-    temperature;
-    wind;
-    humidity;
-    weatherDescription;
-    weatherIcon;
-
-    @api
-    renderTiles(newData, i) {
-        this.currentDate = newData[i].dt_txt.substr(0, 10);
-        this.weatherIcon = `https://openweathermap.org/img/w/${newData[i].weather[0].icon}.png`;
-        this.weatherDescription = newData[i].weather[0].description;
-        this.temperature = `${Math.round(newData[i].main.temp)}°C `;
-        this.wind = `Wind speed: ${Math.round(newData[i].wind.speed)} m/s`;
-        this.humidity = `Humidity: ${Math.round(newData[i].main.humidity)}%`;
-    }
+    @api newData;
 
 }

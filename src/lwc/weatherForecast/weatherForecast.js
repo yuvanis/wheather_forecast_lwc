@@ -12,6 +12,7 @@ export default class WeatherForecast extends LightningElement {
     city;
     isValidData;
     isLoaded;
+    sendData;
 
     connectedCallback() {
         this.isValidData = true;
@@ -44,9 +45,21 @@ export default class WeatherForecast extends LightningElement {
                             newData.push(item);
                         }
                     }
-                    const childComponents = this.template.querySelectorAll('c-weather-forecast-tile');
-                    for (let i = 0; i < childComponents.length; i++) {
-                        childComponents[i].renderTiles(newData, i);
+                    this.sendData = [];
+
+                    for (let i = 0; i < newData.length; i++) {
+
+                        let Data = {
+                            key: i,
+                            date: newData[i].dt_txt.substr(0, 10),
+                            weatherIcon: `https://openweathermap.org/img/w/${newData[i].weather[0].icon}.png`,
+                            weatherDescription: newData[i].weather[0].description,
+                            temperature: `${Math.round(newData[i].main.temp)}°C `,
+                            wind: `Wind speed: ${Math.round(newData[i].wind.speed)} m/s`,
+                            humidity: `Humidity: ${Math.round(newData[i].main.humidity)}%`,
+                        };
+
+                        this.sendData.push(Data);
                     }
                     this.isValidData = true;
                     this.isLoaded = false;
