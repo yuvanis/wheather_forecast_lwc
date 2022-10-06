@@ -9,15 +9,12 @@ import getWeatherForecast from '@salesforce/apex/WeatherForecastController.getWe
 
 export default class WeatherForecast extends LightningElement {
 
-    city;
-    isValidData;
-    isLoaded;
+    city = 'Minsk';
+    isValidData = true;
+    isLoaded = true;
     sendData;
 
     connectedCallback() {
-        this.isValidData = true;
-        this.isLoaded = true;
-        this.city = 'Minsk';
         this.getCallback();
     }
 
@@ -38,13 +35,9 @@ export default class WeatherForecast extends LightningElement {
                     this.isLoaded = false;
                     this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
                 } else {
-                    const newData = [];
-                    newData.push(data[0]);
-                    for (let item of data) {
-                        if ((item.dt_txt.substr(0, 10) !== newData[0].dt_txt.substr(0, 10)) && (item.dt_txt.substr(11, 8) === '15:00:00')) {
-                            newData.push(item);
-                        }
-                    }
+                    const newData = data.filter((item, index, data) => {
+                        return (item === data[0]) || (((item.dt_txt.substr(0, 10) !== data[0].dt_txt.substr(0, 10)) && (item.dt_txt.substr(11, 8) === '15:00:00')));
+                    })
 
                     this.sendData = newData.map((item, index) => {
                         return {
