@@ -33,7 +33,7 @@ export default class WeatherForecast extends LightningElement {
     getCallback() {
         getWeatherForecast({city: this.city})
             .then(data => {
-                if (data.length === 0) {
+                if (!data.length) {
                     this.isValidData = false;
                     this.isLoaded = false;
                     this.template.querySelector('.slds-form-element').classList.add('slds-has-error');
@@ -45,22 +45,19 @@ export default class WeatherForecast extends LightningElement {
                             newData.push(item);
                         }
                     }
-                    this.sendData = [];
 
-                    for (let i = 0; i < newData.length; i++) {
-
-                        let Data = {
-                            key: i,
-                            date: newData[i].dt_txt.substr(0, 10),
-                            weatherIcon: `https://openweathermap.org/img/w/${newData[i].weather[0].icon}.png`,
-                            weatherDescription: newData[i].weather[0].description,
-                            temperature: `${Math.round(newData[i].main.temp)}°C `,
-                            wind: `Wind speed: ${Math.round(newData[i].wind.speed)} m/s`,
-                            humidity: `Humidity: ${Math.round(newData[i].main.humidity)}%`,
+                    this.sendData = newData.map((item, index) => {
+                        return {
+                            key: index,
+                            date: item.dt_txt.substr(0, 10),
+                            weatherIcon: `https://openweathermap.org/img/w/${item.weather[0].icon}.png`,
+                            weatherDescription: item.weather[0].description,
+                            temperature: `${Math.round(item.main.temp)}°C `,
+                            wind: `Wind speed: ${Math.round(item.wind.speed)} m/s`,
+                            humidity: `Humidity: ${Math.round(item.main.humidity)}%`,
                         };
+                    })
 
-                        this.sendData.push(Data);
-                    }
                     this.isValidData = true;
                     this.isLoaded = false;
                     this.template.querySelector('.slds-form-element').classList.remove('slds-has-error');
